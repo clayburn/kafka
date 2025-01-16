@@ -3852,3 +3852,14 @@ task aggregatedJavadoc(type: Javadoc, dependsOn: compileJava) {
   includes = projectsWithJavadoc.collectMany { it.javadoc.getIncludes() }
   excludes = projectsWithJavadoc.collectMany { it.javadoc.getExcludes() }
 }
+
+def develocityApi = project.extensions.findByName('develocity')
+if (!develocityApi) {
+  return
+}
+
+tasks.withType(Test).configureEach { t ->
+  doFirst {
+    develocityApi.getBuildScan().value("${t.identityPath}#ignoreFailures", t.ignoreFailures)
+  }
+}
