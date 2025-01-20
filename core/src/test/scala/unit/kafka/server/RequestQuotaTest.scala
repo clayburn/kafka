@@ -624,7 +624,7 @@ class RequestQuotaTest extends BaseRequestTest {
           new AlterUserScramCredentialsRequest.Builder(new AlterUserScramCredentialsRequestData())
 
         case ApiKeys.VOTE =>
-          new VoteRequest.Builder(VoteRequest.singletonRequest(tp, null, 1, 2, 0, 10))
+          new VoteRequest.Builder(VoteRequest.singletonRequest(tp, null, 1, 2, 0, 10, true))
 
         case ApiKeys.BEGIN_QUORUM_EPOCH =>
           new BeginQuorumEpochRequest.Builder(BeginQuorumEpochRequest.singletonRequest(tp, null, 2, 5))
@@ -745,6 +745,9 @@ class RequestQuotaTest extends BaseRequestTest {
 
         case ApiKeys.STREAMS_GROUP_DESCRIBE =>
           new StreamsGroupDescribeRequest.Builder(new StreamsGroupDescribeRequestData(), true)
+
+        case ApiKeys.DESCRIBE_SHARE_GROUP_OFFSETS =>
+          new DescribeShareGroupOffsetsRequest.Builder(new DescribeShareGroupOffsetsRequestData(), true)
 
         case _ =>
           throw new IllegalArgumentException("Unsupported API key " + apiKey)
